@@ -1,0 +1,498 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>For Jumi ✨</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  :root {
+    --rose: #c0392b;
+    --rose-light: #f8d7da;
+    --rose-mid: #e8a0a0;
+    --gold: #c9a84c;
+    --gold-light: #fdf3dc;
+    --cream: #fffaf5;
+    --dark: #2c1a1a;
+    --mid: #6b3a3a;
+    --soft: #f5e6e8;
+  }
+  body {
+    font-family: 'Lato', sans-serif;
+    background: var(--cream);
+    color: var(--dark);
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+  #landing {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 40px 20px;
+    background: linear-gradient(160deg, #fff0f3 0%, #fffaf5 50%, #fff8e1 100%);
+    position: relative;
+  }
+  .petals-bg {
+    position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+    pointer-events: none; overflow: hidden; z-index: 0;
+  }
+  .petal {
+    position: absolute;
+    font-size: 1.5rem;
+    animation: fall linear infinite;
+    opacity: 0.5;
+  }
+  @keyframes fall {
+    0% { transform: translateY(-60px) rotate(0deg); opacity: 0.6; }
+    100% { transform: translateY(110vh) rotate(360deg); opacity: 0; }
+  }
+  .landing-content { position: relative; z-index: 1; max-width: 600px; }
+  .bismillah {
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    color: var(--gold);
+    font-size: 1.1rem;
+    letter-spacing: 2px;
+    margin-bottom: 18px;
+    opacity: 0.85;
+  }
+  .landing-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 2.8rem;
+    color: var(--dark);
+    line-height: 1.25;
+    margin-bottom: 16px;
+  }
+  .landing-title span { color: var(--rose); font-style: italic; }
+  .landing-sub {
+    font-size: 1.05rem;
+    color: var(--mid);
+    line-height: 1.7;
+    margin-bottom: 36px;
+  }
+  .begin-btn {
+    background: var(--rose);
+    color: white;
+    border: none;
+    padding: 14px 44px;
+    border-radius: 50px;
+    font-family: 'Lato', sans-serif;
+    font-size: 1rem;
+    letter-spacing: 1.5px;
+    cursor: pointer;
+    transition: all 0.3s;
+    box-shadow: 0 4px 20px rgba(192,57,43,0.25);
+  }
+  .begin-btn:hover { background: #a93226; transform: translateY(-2px); box-shadow: 0 8px 28px rgba(192,57,43,0.3); }
+  .section { display: none; min-height: 100vh; padding: 60px 24px; }
+  .section.active { display: flex; flex-direction: column; align-items: center; justify-content: center; }
+  #reasons { background: var(--soft); }
+  .section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 2rem;
+    color: var(--dark);
+    text-align: center;
+    margin-bottom: 8px;
+  }
+  .section-sub {
+    text-align: center;
+    color: var(--mid);
+    font-size: 1rem;
+    margin-bottom: 36px;
+    font-style: italic;
+  }
+  .reasons-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 16px;
+    max-width: 680px;
+    width: 100%;
+    margin-bottom: 36px;
+  }
+  .reason-card {
+    background: white;
+    border-radius: 20px;
+    padding: 24px 20px;
+    text-align: center;
+    border: 1.5px solid transparent;
+    cursor: pointer;
+    transition: all 0.3s;
+    box-shadow: 0 2px 12px rgba(192,57,43,0.06);
+  }
+  .reason-card:hover, .reason-card.selected {
+    border-color: var(--rose);
+    transform: translateY(-4px);
+    box-shadow: 0 8px 28px rgba(192,57,43,0.15);
+  }
+  .reason-icon { font-size: 2rem; margin-bottom: 10px; }
+  .reason-label { font-size: 0.95rem; color: var(--dark); font-weight: 600; }
+  .reason-desc { font-size: 0.82rem; color: #999; margin-top: 6px; }
+  .selected-msg {
+    font-size: 0.95rem;
+    color: var(--rose);
+    text-align: center;
+    min-height: 28px;
+    font-style: italic;
+    margin-bottom: 20px;
+  }
+  #letter { background: var(--gold-light); }
+  .letter-paper {
+    background: white;
+    border-radius: 18px;
+    max-width: 560px;
+    width: 100%;
+    padding: 48px 44px;
+    box-shadow: 0 8px 40px rgba(0,0,0,0.07);
+    border-top: 6px solid var(--rose);
+    position: relative;
+    margin-bottom: 32px;
+  }
+  .letter-paper::before {
+    content: '"';
+    font-family: 'Playfair Display', serif;
+    font-size: 7rem;
+    color: var(--rose-light);
+    position: absolute;
+    top: -10px;
+    left: 24px;
+    line-height: 1;
+  }
+  .letter-content {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.1rem;
+    line-height: 2;
+    color: var(--dark);
+    font-style: italic;
+    position: relative;
+    z-index: 1;
+  }
+  .letter-sig {
+    margin-top: 28px;
+    text-align: right;
+    font-family: 'Playfair Display', serif;
+    color: var(--rose);
+    font-size: 1.15rem;
+    font-style: italic;
+  }
+  #promises { background: #fff5f6; }
+  .promise-list {
+    max-width: 560px;
+    width: 100%;
+    margin-bottom: 32px;
+  }
+  .promise-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+    padding: 18px 20px;
+    background: white;
+    border-radius: 16px;
+    margin-bottom: 14px;
+    border-left: 4px solid var(--rose);
+    box-shadow: 0 2px 10px rgba(0,0,0,0.04);
+    transition: transform 0.2s;
+    cursor: default;
+  }
+  .promise-item:hover { transform: translateX(6px); }
+  .promise-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.5rem;
+    color: var(--rose-mid);
+    font-weight: bold;
+    min-width: 32px;
+  }
+  .promise-text { font-size: 0.97rem; color: var(--dark); line-height: 1.6; }
+  .promise-text strong { color: var(--rose); }
+  #finale { background: linear-gradient(135deg, #fff0f3, #fffaf5, #fff8e1); }
+  .heart-anim {
+    font-size: 4rem;
+    animation: heartbeat 1.2s ease-in-out infinite;
+    margin-bottom: 24px;
+  }
+  @keyframes heartbeat {
+    0%, 100% { transform: scale(1); }
+    14% { transform: scale(1.18); }
+    28% { transform: scale(1); }
+    42% { transform: scale(1.12); }
+    70% { transform: scale(1); }
+  }
+  .finale-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 2.4rem;
+    color: var(--dark);
+    text-align: center;
+    margin-bottom: 16px;
+  }
+  .finale-sub {
+    text-align: center;
+    color: var(--mid);
+    font-size: 1.05rem;
+    line-height: 1.8;
+    max-width: 460px;
+    margin-bottom: 36px;
+  }
+  .dua-box {
+    background: var(--gold-light);
+    border: 1.5px solid var(--gold);
+    border-radius: 16px;
+    padding: 20px 28px;
+    max-width: 480px;
+    text-align: center;
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    color: var(--mid);
+    font-size: 0.95rem;
+    line-height: 1.8;
+    margin-bottom: 32px;
+  }
+  .dua-box span { display: block; font-size: 1.1rem; color: var(--gold); margin-bottom: 8px; }
+  .nav-row { display: flex; gap: 14px; flex-wrap: wrap; justify-content: center; }
+  .nav-btn {
+    background: white;
+    color: var(--rose);
+    border: 1.5px solid var(--rose);
+    padding: 11px 30px;
+    border-radius: 50px;
+    font-size: 0.93rem;
+    cursor: pointer;
+    transition: all 0.25s;
+    font-family: 'Lato', sans-serif;
+  }
+  .nav-btn:hover { background: var(--rose); color: white; }
+  .nav-btn.primary { background: var(--rose); color: white; }
+  .nav-btn.primary:hover { background: #a93226; }
+  .progress {
+    position: fixed;
+    bottom: 24px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 8px;
+    z-index: 100;
+  }
+  .dot {
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    background: var(--rose-mid);
+    transition: all 0.3s;
+    cursor: pointer;
+  }
+  .dot.active { background: var(--rose); transform: scale(1.4); }
+  .confetti-star {
+    position: fixed;
+    pointer-events: none;
+    font-size: 1.2rem;
+    animation: floatUp 1.8s ease-out forwards;
+    z-index: 999;
+  }
+  @keyframes floatUp {
+    0% { opacity: 1; transform: translateY(0) rotate(0deg); }
+    100% { opacity: 0; transform: translateY(-180px) rotate(360deg); }
+  }
+</style>
+</head>
+<body>
+
+<div class="petals-bg" id="petals"></div>
+
+<div class="progress">
+  <div class="dot active" onclick="goTo(0)"></div>
+  <div class="dot" onclick="goTo(1)"></div>
+  <div class="dot" onclick="goTo(2)"></div>
+  <div class="dot" onclick="goTo(3)"></div>
+</div>
+
+<div id="landing" class="section active">
+  <div class="landing-content">
+    <div class="bismillah">بِسْمِ اللهِ الرَّحْمٰنِ الرَّحِيْمِ</div>
+    <h1 class="landing-title">
+      To Jomana — the one who <span>means everything</span> to me
+    </h1>
+    <p class="landing-sub">
+      I made this just for you. Because you deserve more than just a text.<br>
+      Please take a few minutes — this is from my heart.
+    </p>
+    <button class="begin-btn" onclick="goTo(1)">OPEN MY HEART ❤️</button>
+  </div>
+</div>
+
+<div id="reasons" class="section">
+  <h2 class="section-title">I'm sorry for...</h2>
+  <p class="section-sub">Tap what feels true — I own all of it</p>
+  <div class="reasons-grid" id="reasonsGrid">
+    <div class="reason-card" onclick="selectReason(this, 'I hurt you with my words or actions, and that was never okay.')">
+      <div class="reason-icon">💬</div>
+      <div class="reason-label">What I said</div>
+      <div class="reason-desc">Words that should have been kinder</div>
+    </div>
+    <div class="reason-card" onclick="selectReason(this, 'I didn\'t give you the attention and care you deserve.')">
+      <div class="reason-icon">👂</div>
+      <div class="reason-label">Not listening</div>
+      <div class="reason-desc">When you needed me to truly hear you</div>
+    </div>
+    <div class="reason-card" onclick="selectReason(this, 'I let my pride get in the way of your feelings — I was wrong.')">
+      <div class="reason-icon">🙈</div>
+      <div class="reason-label">My ego</div>
+      <div class="reason-desc">Pride before you — never again</div>
+    </div>
+    <div class="reason-card" onclick="selectReason(this, 'I made you feel like you weren\'t my first priority.')">
+      <div class="reason-icon">⏰</div>
+      <div class="reason-label">My time</div>
+      <div class="reason-desc">Not making enough time for you</div>
+    </div>
+    <div class="reason-card" onclick="selectReason(this, 'I didn\'t appreciate your kindness and patience enough.')">
+      <div class="reason-icon">🌸</div>
+      <div class="reason-label">Undervaluing you</div>
+      <div class="reason-desc">You give so much, I gave too little</div>
+    </div>
+    <div class="reason-card" onclick="selectReason(this, 'Everything — I just want you to know I\'m truly sorry from the bottom of my heart.')">
+      <div class="reason-icon">💔</div>
+      <div class="reason-label">Everything</div>
+      <div class="reason-desc">All of it — I'm truly sorry</div>
+    </div>
+  </div>
+  <div class="selected-msg" id="selectedMsg">Tap a card above to acknowledge it ↑</div>
+  <div class="nav-row">
+    <button class="nav-btn" onclick="goTo(0)">← Back</button>
+    <button class="nav-btn primary" onclick="goTo(2)">Continue →</button>
+  </div>
+</div>
+
+<div id="letter" class="section">
+  <h2 class="section-title" style="margin-bottom:28px;">From my heart to yours</h2>
+  <div class="letter-paper">
+    <div class="letter-content">
+      My dearest Jumi,<br><br>
+      I know you're hurting right now, and I hate that I am the reason for that pain.
+      There is no excuse for making you feel anything less than the wonderful, precious person that you are.<br><br>
+      You have a heart so pure and so patient — and I took that for granted.
+      I was wrong, and I am truly, deeply sorry.<br><br>
+      If I could take back every moment that made you doubt my love or my respect for you,
+      I would in a heartbeat. You deserve gentleness, understanding, and someone who never
+      makes you feel small. I want to be that person for you.<br><br>
+      I'm not asking you to forget. I'm asking for the chance to prove —
+      with actions, not just words — that you matter more to me than my ego,
+      my excuses, or my mistakes ever will.<br><br>
+      Please know: even in your silence, I feel how much you mean to me.
+    </div>
+    <div class="letter-sig">— Yours, always 🌹</div>
+  </div>
+  <div class="nav-row">
+    <button class="nav-btn" onclick="goTo(1)">← Back</button>
+    <button class="nav-btn primary" onclick="goTo(3)">My Promises →</button>
+  </div>
+</div>
+
+<div id="promises" class="section">
+  <h2 class="section-title">My promises to you</h2>
+  <p class="section-sub">Written with sincerity, not just words</p>
+  <div class="promise-list">
+    <div class="promise-item">
+      <div class="promise-num">١</div>
+      <div class="promise-text">I promise to <strong>listen first</strong> — before reacting, before defending, before anything else.</div>
+    </div>
+    <div class="promise-item">
+      <div class="promise-num">٢</div>
+      <div class="promise-text">I promise to <strong>put your feelings</strong> above my pride, always.</div>
+    </div>
+    <div class="promise-item">
+      <div class="promise-num">٣</div>
+      <div class="promise-text">I promise to <strong>communicate openly</strong> — to talk, not shut down, even when it's hard.</div>
+    </div>
+    <div class="promise-item">
+      <div class="promise-num">٤</div>
+      <div class="promise-text">I promise to <strong>appreciate you daily</strong> — in small ways that remind you you're loved.</div>
+    </div>
+    <div class="promise-item">
+      <div class="promise-num">٥</div>
+      <div class="promise-text">I promise to <strong>be patient</strong> — with your feelings, with the process of healing, with us.</div>
+    </div>
+  </div>
+  <div class="nav-row">
+    <button class="nav-btn" onclick="goTo(2)">← Back</button>
+    <button class="nav-btn primary" onclick="goTo(4); launchStars()">Final Message →</button>
+  </div>
+</div>
+
+<div id="finale" class="section">
+  <div class="heart-anim">❤️</div>
+  <h2 class="finale-title">You are worth every effort</h2>
+  <p class="finale-sub">
+    My love, no argument, no distance, and no silence can change what you mean to me.
+    I hope you feel this in every word on this page — it was made with love, only for you.
+  </p>
+  <div class="dua-box">
+    <span>🤲 A prayer for us</span>
+    "O Allah, bless our hearts with understanding, soften them with forgiveness,
+    and grant us patience with one another. Ameen."
+  </div>
+  <div class="nav-row">
+    <button class="nav-btn" onclick="goTo(3)">← Back</button>
+    <button class="nav-btn primary" onclick="launchStars(); launchStars()">Send Love ❤️</button>
+  </div>
+</div>
+
+<script>
+  const sections = ['landing','reasons','letter','promises','finale'];
+  let current = 0;
+
+  function goTo(idx) {
+    document.querySelector('.section.active').classList.remove('active');
+    const target = document.getElementById(sections[idx]);
+    target.classList.add('active');
+    current = idx;
+    updateDots();
+    window.scrollTo(0, 0);
+  }
+
+  function updateDots() {
+    document.querySelectorAll('.dot').forEach((d, i) => {
+      d.classList.toggle('active', i === current);
+    });
+  }
+
+  function selectReason(card, msg) {
+    document.querySelectorAll('.reason-card').forEach(c => c.classList.remove('selected'));
+    card.classList.add('selected');
+    document.getElementById('selectedMsg').textContent = '"' + msg + '"';
+    launchStars(card);
+  }
+
+  function launchStars(el) {
+    const emojis = ['🌸','✨','❤️','🌹','💫','🕊️','💕'];
+    const count = 8;
+    const rect = el ? el.getBoundingClientRect() : { left: window.innerWidth/2, top: window.innerHeight/2 };
+    for (let i = 0; i < count; i++) {
+      setTimeout(() => {
+        const star = document.createElement('div');
+        star.className = 'confetti-star';
+        star.textContent = emojis[Math.floor(Math.random() * emojis.length)];
+        star.style.left = (rect.left + Math.random() * 80 - 20) + 'px';
+        star.style.top = (rect.top + Math.random() * 40) + 'px';
+        document.body.appendChild(star);
+        setTimeout(() => star.remove(), 1900);
+      }, i * 100);
+    }
+  }
+
+  const petalContainer = document.getElementById('petals');
+  const petalSymbols = ['🌸','🌹','✨','🌺','💮'];
+  for (let i = 0; i < 18; i++) {
+    const p = document.createElement('div');
+    p.className = 'petal';
+    p.textContent = petalSymbols[i % petalSymbols.length];
+    p.style.left = (Math.random() * 100) + '%';
+    p.style.animationDuration = (6 + Math.random() * 8) + 's';
+    p.style.animationDelay = (Math.random() * 8) + 's';
+    p.style.fontSize = (1 + Math.random() * 0.8) + 'rem';
+    petalContainer.appendChild(p);
+  }
+
+  updateDots();
+</script>
+</body>
+</html>
